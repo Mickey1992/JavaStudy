@@ -72,12 +72,12 @@ To ensure that your interface meet the requirements, you should add the `@Functi
 - Reference to a constructor `ClassName::new`
 
 ### Lambda Scopes
-- Accessing local variables
-  the local must be implictly(declared final or never be changed)
-  only have the read access but no write access
+- Accessing local variables:
+  t\The local must be implictly.(declared final or never be changed)
+  And only have the read access but no write access
 
-- Accessing fields and static variables
+- Accessing fields and static variables:
   have both read and write access
 
-- Accessing Default Interface Methods
+- Accessing Default Interface Methods:
   Default methods cannot be accessed from within lambda expressions.
