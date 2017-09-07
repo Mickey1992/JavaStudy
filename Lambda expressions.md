@@ -57,7 +57,7 @@ And then,since the java compiler is aware of the parameter types so you can skip
   Collections.sort(names, (a, b) -> b.compareTo(a));
 ```
 
-###Functional Interface
+### Functional Interface
 Each lambda corresponds to a given type, specified by an interface. 
 A so called functional interface must contain exactly one abstract method declaration. 
 Each lambda expression of that type will be matched to this abstract method. 
@@ -73,11 +73,11 @@ To ensure that your interface meet the requirements, you should add the `@Functi
 
 ### Lambda Scopes
 - Accessing local variables
-the local must be implictly(declared final or never be changed)
-only have the read access but no write access
+  the local must be implictly(declared final or never be changed)
+  only have the read access but no write access
 
 - Accessing fields and static variables
-have both read and write access
+  have both read and write access
 
 - Accessing Default Interface Methods
-Default methods cannot be accessed from within lambda expressions.
+  Default methods cannot be accessed from within lambda expressions.
