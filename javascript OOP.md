@@ -163,7 +163,7 @@ instance.testMethod();
 
 **Use `call` or `apply` method**
 
-```javacript
+```javascript
 function test(arg1, arg2) {
    console.info(this.value, arg1, arg2);
 }
@@ -179,7 +179,7 @@ test.apply(o, ["a", "b"]);
 
 **Use `bind` method**
 
-```javacript
+```javascript
 function test(arg1, arg2) {
    console.info(this.value, arg1, arg2);
 }
