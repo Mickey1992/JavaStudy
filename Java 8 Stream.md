@@ -13,7 +13,7 @@ Two kinds of Stream Operations
 		myList.stream()
 ```
 
-**use `Stream.of()`to create a stream from a bunch of object references**
+**Use `Stream.of()`to create a stream from a bunch of object references**
 
 ```java
 Stream.of("aa", "bc", "ac");
@@ -33,7 +33,7 @@ IntStream.range(1, 4)
 ```
 also there are LongStream, DoubleStream
 
-**transform a regular object stream to a primitive stream**
+**Transform a regular object stream to a primitive stream**
 
 ```java
 Stream.of("1", "2", "3")
@@ -44,13 +44,14 @@ Stream.of("1", "2", "3")
 
 also,there are mapToLong, mapToDouble
 
-**transform a primitive stream to a regular object stream**
+**Transform a primitive stream to a regular object stream**
 do this by using `mapToObj()`
 
 ```java
+//the output is "class java.lang.Integer" * 3
 IntStream.range(1, 3).mapToObj(Integer::new).map(s -> s.getClass()).forEach(System.out::println);
 
-//the output is class java.lang.Integer 
+//the output is "class java.lang.Integer" * 3
 Stream.of(1, 2, 3).map(s -> s.getClass()).forEach(System.out::println);
 
 //compile error, because int is not an object type, we can not get its class
