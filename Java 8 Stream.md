@@ -50,6 +50,7 @@ Stream.of("1", "2", "3")
 also,there are mapToLong, mapToDouble
 
 **Transform a primitive stream to a regular object stream**
+
 do this by using `mapToObj()`
 
 ```java
@@ -104,6 +105,7 @@ forEach c
 end of program
 ```
 **Each element moves along the chain vertically.**
+
 But not execute the operations horizontally one after another on all elements of the stream.
 
 We can reduce the actual number of operations performed on each element
