@@ -223,7 +223,7 @@ For all the operations supported by Stream: [Stream Javadoc](http://docs.oracle.
 - is used to transform the elements of the stream into a different kind of result(List, Set, Map...)
 - accepts a `Collector`which consists of four different operations: a supplier, an accumulator, a combiner and a finisher. (Java 8 supports various built-in collectors via the `Collectors` class)
 
-Construct a List/Set from Stream
+Using Java8 built-in collectors (e.g:toList/toSet)
 ```java
 Supplier<Stream<String>> streamSupplier = () -> Stream.of(1, 2, 3, 3)
 						.map(s -> "a" + s);
@@ -236,6 +236,97 @@ System.out.println("Set: " + strNumsSet);
 //List: [a1, a2, a3, a3]
 //Set: [a1, a2, a3]
 ```
+
+Build our own special collector
+1. Create a new collector via `Collectors.of()`
+2. pass the four ingredients of a collector: a supplier, an accumulator, a combiner and a finisher
+
+   - supplier
+ 
+      To implement a collector, we need to provide a supplier that creates a result container. This is where the accumulated value will be stored.
+   - accumulator
+      
+      Next, we need to create a function that defines how we’ll add an element to the result container.
+   - combiner
+   
+      The combiner is a function that defines how two result containers could be combined.
+      
+      In a sequential reduction the supplier and accumulator above would be sufficient. But to be able to support a parallel implementation we need to provide a combiner.
+   - finisher
+   
+      if we do not define a finisher, the collector will return the result container.
+      
+      if you do not want to return the result container but the other things, a finisher is required
+      
+```java
+Collector<Integer, StringJoiner, String> streamCollector = 
+		Collector.of(
+				() -> new StringJoiner(" | ", "Start-> ", " <-End"), 
+				(j, i) -> j.add(i.toString()), 
+				(j1, j2) -> j1.merge(j2), 
+				StringJoiner::toString);
+String test = Stream.of(1, 2, 3).collect(streamCollector);
+System.out.println(test);
+
+//Start-> 1 | 2 | 3 <-End
+```
+
+**FlatMap**
+
+`map()` Returns a stream consisting of the results of applying the given function to the elements of this stream
+`flatMap()` transforms each element of the stream into a stream of other objects.
+
+```java
+final List<String> list1 = Arrays.asList("a1", "a2");
+final List<List<String>> list2 = Arrays.asList(Arrays.asList("a1", "a2"), Arrays.asList("b1", "b2"));
+
+System.out.println(list1.stream().map(String::toUpperCase).collect(Collectors.toList()));
+System.out.println(list2.stream().map(s -> s.stream()).collect(Collectors.toList()));
+System.out.println(list2.stream().flatMap(s -> s.stream()).collect(Collectors.toList()));
+
+//[A1, A2]
+//[java.util.stream.ReferencePipeline$Head@776ec8df, java.util.stream.ReferencePipeline$Head@4eec7777]
+//[a1, a2, b1, b2]
+```
+
+**Reduce**
+
+The reduction operation combines all elements of the stream into a single result
+
+Java 8 supports three different kind of reduce methods
+
+1. accept a BinaryOperator accumulator (reduce a stream of elements to exactly one element of the stream)
+
+```java
+IntStream.range(1, 4)
+	.mapToObj(Integer::new)
+	.reduce((i1, i2) -> i1 > i2 ? i1 : i2)
+	.ifPresent(System.out::println);
+	
+//3
+```
+
+2. accept both an identity value (the result) and a BinaryOperator accumulator (how we’ll add an element to the identity).
+
+the type of identity value and the parameters of accumulator must be the same
+
+```java
+int sum = IntStream.range(1, 4)
+			.mapToObj(Integer::new)
+			.reduce(new Integer(0),(r, i) -> r += i);
+System.out.println(sum);
+
+//6
+```
+
+3. accept three parameters: an identity value, a BiFunction accumulator and a combiner function of type BinaryOperator
+
+   the usage of combiner is the same as it is used in create a `collector` - to be able to support a parallel implementation
+
+
+### Parallel Streams
+
+Streams can be executed in parallel to increase runtime performance on large amount of input elements.
 
 
 
