@@ -167,4 +167,77 @@ Stream.of("d2", "a2", "b1", "b3", "c")
 //filter:  d2
 ```
 
+### How to reuse a stream
+As soon as a terminal operation is called, the Stream is closed.
+
+=We can not ask a Stream which has already got to the terminate station go back to a middle station .
+
+```java
+Stream<String> stream = Stream.of("a", "b", "c");
+stream.forEach(System.out::println); //ok
+stream.forEach(s -> System.out.println("reuse: " + s)); //exception
+```
+
+Here is the result of the code above
+
+```java
+a
+b
+c
+Exception in thread "main" java.lang.IllegalStateException: stream has already been operated upon or closed
+	at java.util.stream.AbstractPipeline.sourceStageSpliterator(AbstractPipeline.java:279)
+	at java.util.stream.ReferencePipeline$Head.forEach(ReferencePipeline.java:580)
+	at test.Demo.main(Demo.java:9)
+```
+
+To solve this problem, we can create a stream `Supplier` to construct a new stream with all intermediate operations already set up.
+
+**The `Supplier` interface**
+- a function interfance
+- it takes no arguement, and returns some value by calling its `get()` method
+
+**The `Consumer` interface**
+- a function interfance
+- it does the opposite of the Supplier
+- it takes a single arguement, and doesn't return anything by calling its `accept()` method
+
+```java
+Supplier<Stream<String>> streamSupplier = () -> Stream.of("a", "b", "c");
+streamSupplier.get().forEach(System.out::println); //ok
+streamSupplier.get().forEach(s -> System.out.println("reuse: " + s)); //ok
+```
+the code above is equivalent to
+
+```java
+Stream.of("a", "b", "c").forEach(System.out::println);
+Stream.of("a", "b", "c").forEach(s -> System.out.println("reuse: " + s));
+```
+Here, in fact, we create two streams.
+While in the NG example,only one stream is created.
+
+### Advanced Operations
+For all the operations supported by Stream: [Stream Javadoc](http://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html)
+
+**Collect**
+- a terminal operation
+- is used to transform the elements of the stream into a different kind of result(List, Set, Map...)
+- accepts a `Collector`which consists of four different operations: a supplier, an accumulator, a combiner and a finisher. (Java 8 supports various built-in collectors via the `Collectors` class)
+
+Construct a List/Set from Stream
+```java
+Supplier<Stream<String>> streamSupplier = () -> Stream.of(1, 2, 3, 3)
+						.map(s -> "a" + s);
+List<String> strNumsList = streamSupplier.get().collect(Collectors.toList());
+Set<String> strNumsSet = streamSupplier.get().collect(Collectors.toSet());
+
+System.out.println("List: " + strNumsList);
+System.out.println("Set: " + strNumsSet);
+
+//List: [a1, a2, a3, a3]
+//Set: [a1, a2, a3]
+```
+
+
+
+
 
