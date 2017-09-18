@@ -101,10 +101,10 @@ Box<Integer> integerBox = new Box<>();
 ```
 
 we can also substitute a type parameter with a parameterized type
+
 ```java
 OrderedPair<String, Box<Integer>> p = new OrderedPair<>("primes", new Box<Integer>(...));
-``
-
+```
 ### Raw Types
 
 A raw type is the name of a generic class or interface without any type arguments.
@@ -118,3 +118,63 @@ Box rawBox = newBox();
 
 The point is that, you defined a generic class, and you don't pass type arguements to it we you invoke it.
 So, a non-generic class or interface type is not a raw type.
+
+assigning a parameterized type to its raw type is allowed, and assigning a raw type to a parameterized type is not allowed
+
+```java
+Box<String> stringBox = new Box<>();
+Box rawBox = stringBox;               // OK
+
+Box rawBox = new Box();           // rawBox is a raw type of Box<T>
+Box<Integer> intBox = rawBox;     // warning: unchecked conversion
+```
+Invoking generic methods with raw type is also not allowed. 
+
+```java
+Box<String> stringBox = new Box<>();
+Box rawBox = stringBox;
+rawBox.set(8);  // warning: unchecked invocation to set(T)
+```
+###Generic Methods
+
+Generic methods are methods that introduce their own type parameters. This is similar to declaring a generic type, but the type parameter's scope is limited to the method where it is declared. 
+
+how to create generic method
+```java
+<T1, T2, ..., Tn> returnType methodName(P1, P2,... ,Pn)
+```
+
+how to invoke a generic method
+```java
+<t1,t2,..., tn>methodName(p1, p2, ..., pn);
+
+//this is also ok,since the compiler will infer the type is needed
+methodName(p1, p2, ..., pn);
+```
+
+###Bounded Type parameters
+
+Sometimes we want to restrict the type can be used as type arguemrnts.
+
+```java
+//T1 can only be upperBoundClass or its subclass
+class ClassName<T1 extends upperBoundClass> {...}
+```
+
+In addition to limiting the types you can use to instantiate a generic type, bounded type parameters allow you to invoke methods defined in the bounds:
+
+```java
+public class NaturalNumber<T extends Integer> {
+
+    private T n;
+
+    public NaturalNumber(T n)  { this.n = n; }
+
+    public boolean isEven() {
+        return n.intValue() % 2 == 0; //intValue is a method defined in the Integer class
+    }
+
+    // ...
+}
+```
+multiple bounds
