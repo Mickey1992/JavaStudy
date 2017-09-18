@@ -84,18 +84,17 @@ So, taking advantage of bubbling, we bind a single event handler on its parent e
 </script>
 
 <ul id="list-contaier">
-		<li>0</li>
-		<li>0</li>
-		<li>0</li>
-		<li>0</li>
-		<li class="active">0</li>
-		<li>0</li>
-		<li class="active">0</li>
-		<li>0</li>
-	</ul>
-	<div>abc</div>
+	<li>0</li>
+	<li>0</li>
+	<li>0</li>
+	<li>0</li>
+	<li class="active">0</li>
+	<li>0</li>
+	<li class="active">0</li>
+	<li>0</li>
+</ul>
+<div>abc</div>
 ```
-
 So with the code above, when you click a list-element whose class is set to active, the index of the element which you click will be alerted.
 
 2. Although almost events bubble, there are some exceptions.
