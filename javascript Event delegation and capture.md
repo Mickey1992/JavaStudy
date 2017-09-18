@@ -70,6 +70,34 @@ To stop the bubbling and prevent handlers on the current element from running, t
 3. Bubbling phase – the event bubbles up from the element.
 
 
-### The usage of bubbling
+### The usage of bubbling and capturing
 1. Suppose you want to respond to a click on any A tag on the page, even if the set of A tags changes over time. In particular, we don’t want to visit every A tag and add an event listener.
-So, taking advantage of bubbling, you bind a single event handler
+So, taking advantage of bubbling, we bind a single event handler on its parent element.
+
+```HTML
+<script>
+  $(document).ready(function() {
+    $(document.body).on("click", "#list-contaier > li.active", function() {
+      alert($(this).index());
+    })
+  });
+</script>
+
+<ul id="list-contaier">
+		<li>0</li>
+		<li>0</li>
+		<li>0</li>
+		<li>0</li>
+		<li class="active">0</li>
+		<li>0</li>
+		<li class="active">0</li>
+		<li>0</li>
+	</ul>
+	<div>abc</div>
+```
+
+So with the code above, when you click a list-element whose class is set to active, the index of the element which you click will be alerted.
+
+2. Although almost events bubble, there are some exceptions.
+if we want catch the event which won't bubbles, we can use capture.
+
