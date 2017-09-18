@@ -28,23 +28,26 @@ public Class Computer {
  Here we define a Computer, a computer might or might not have a sound card (it is optional)
  
  **How to create Optional objects**
-    + an empty optional
-       ```java
-       Optional<Soundcard> sc = Optional.empty();
-       ```
-    + an Optional with a non-null value
-       ```java
-       SoundCard soundcard = new Soundcard();
-       Optional<Soundcard> sc = Optional.of(soundcard);
-       ```
+ 
++ an empty optional
+
+```java
+Optional<Soundcard> sc = Optional.empty();
+```
++ an Optional with a non-null value
+
+```java
+SoundCard soundcard = new Soundcard();
+Optional<Soundcard> sc = Optional.of(soundcard);
+```
        
-       If soundcard were null, a NullPointerException would be immediately thrown
+If soundcard were null, a NullPointerException would be immediately thrown
        
-    + using ofNullable to create an Optional object that may hold a null value
++ using ofNullable to create an Optional object that may hold a null value
     
-       ```java
-       Optional<Soundcard> sc = Optional.ofNullable(soundcard); 
-       ```
+```java
+Optional<Soundcard> sc = Optional.ofNullable(soundcard); 
+```
        
  **Do Something If a Value Is Present**
  We can use the `ifPresent()` method
@@ -72,14 +75,26 @@ public Class Computer {
  
  Here the `orElse()` method means, it will provide a default value if Optional is empty
  
+ Also, we have `orElseThrow` and `orElseGet`
+ 
+ The difference between `orElse` and `orElseGet`
+ 
+ ```java
+ Soundcard soundcard = maybeSoundcard.orElse(new Soundcard());
+ Soundcard soundcard = maybeSoundcard.orElseGet(Soundcard::new);
+ ```
+ 
+ a new instance of Soundcard will always be created if we use `orElse`, wheather it is needed or not.
+ While if we use `orElseGet`, it will be created only if `maybeSoundcard` is empty.
+ 
  **Rejecting Certain Values Using the filter Method**
+ 
  non-optional vs optional
  ```java
 USB usb = ...;
 if(usb != null && "3.0".equals(usb.getVersion())){
   System.out.println("ok");
 }
-
  ```
  ```java
  Optional<USB> maybeUSB = ...;
@@ -137,7 +152,7 @@ if(usb != null && "3.0".equals(usb.getVersion())){
   
   ### Advantages of Java 8 Optional
 
-+ Null checks are not required.
++ Null checks are not required. (Optional forces you to actively unwrap an Optional to deal with the absence of a value; as a result, you protect your code against unintended null pointer exceptions)
 + No more NullPointerException at run-time.
 + We can develop clean and neat APIs.
 + No more Boiler plate code
