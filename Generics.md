@@ -135,7 +135,7 @@ Box<String> stringBox = new Box<>();
 Box rawBox = stringBox;
 rawBox.set(8);  // warning: unchecked invocation to set(T)
 ```
-###Generic Methods
+### Generic Methods
 
 Generic methods are methods that introduce their own type parameters. This is similar to declaring a generic type, but the type parameter's scope is limited to the method where it is declared. 
 
@@ -152,7 +152,7 @@ how to invoke a generic method
 methodName(p1, p2, ..., pn);
 ```
 
-###Bounded Type parameters
+### Bounded Type parameters
 
 Sometimes we want to restrict the type can be used as type arguemrnts.
 
@@ -178,3 +178,35 @@ public class NaturalNumber<T extends Integer> {
 }
 ```
 multiple bounds
+
+a type parameter can have multiple bounds
+
+```java
+class ClassName<T extends B1 & B2 & B3> {...}
+```
+A type variable with multiple bounds is a subtype of all the types listed in the bound. If one of the bounds is a class, it must be specified first.(At most one class)
+
+You can subtype a generic class or interface by extending or implementing it. The relationship between the type parameters of one class or interface and the type parameters of another are determined by the extends and implements clauses.
+
+### Generic Inference
+
+the inference algorithm uses only invocation arguments, target types, and possibly an obvious expected return type to infer types. 
+
+### Wildcards(?)
+
+In generic code, the question mark (?), called the wildcard, represents an unknown type.
+
+It is never used as a type argument for a generic method invocation, a generic class instance creation, or a supertype.
+
+**Upper Bounded Wildcards*
+
+To declare an upper-bounded wildcard, use the wildcard character ('?'), followed by the extends keyword, followed by its upper bound. Note that, in this context, extends is used in a general sense to mean either "extends" (as in classes) or "implements" (as in interfaces).
+
+```java
+public static void process(List<? extends Foo> list) { /* ... */ }
+```
+
+The method above works on list of elements whose type is `Foo` or the subtype of `Foo`
+
+**Unbounded Wildcards*
+
