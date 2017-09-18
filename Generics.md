@@ -198,7 +198,7 @@ In generic code, the question mark (?), called the wildcard, represents an unkno
 
 It is never used as a type argument for a generic method invocation, a generic class instance creation, or a supertype.
 
-**Upper Bounded Wildcards*
+**Upper Bounded Wildcards**
 
 To declare an upper-bounded wildcard, use the wildcard character ('?'), followed by the extends keyword, followed by its upper bound. Note that, in this context, extends is used in a general sense to mean either "extends" (as in classes) or "implements" (as in interfaces).
 
@@ -208,5 +208,7 @@ public static void process(List<? extends Foo> list) { /* ... */ }
 
 The method above works on list of elements whose type is `Foo` or the subtype of `Foo`
 
-**Unbounded Wildcards*
+**Unbounded Wildcards**
+
+To be continued
 
