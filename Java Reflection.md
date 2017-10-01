@@ -104,6 +104,18 @@ NOTE:if the modifier of a Constructor is not `public`, it will not be returned
    ```
 
 If no constructor matches the given constructor arguments, `NoSuchMethodException` will be thrown
+
+- **Instantiating Objects using Constructor Object**
+
+   ```java
+      Constructor constructor = classObject.getConstructor(new Class [] {String.Class});
+      ClasName newObject = (ClassName) constructor.newInstance(paramaters);
+      
+      //the example of using Person Class
+      Class classObject = Person.class;
+	   Constructor constructor = classObject.getConstructor(new Class[] { String.class, int.class, String.class });
+	   Person newPerson = (Person) constructor.newInstance("City", 20, "name");
+   ```
    
 ### methods
 
@@ -111,13 +123,79 @@ If no constructor matches the given constructor arguments, `NoSuchMethodExceptio
 Method[] methods = classObject.getMethods();
 ```
 ### fields
+we can get a `java.lang.reflect.Field` instance for each `public` field declared in the class.
+
+- obtain all `public` fields declared in the class
 
 ```java
 Field[] fields = classObject.getFields();
 ```
 
+- obtain a certain `public` field with its name
+
+```java
+Field[] fields = classObject.getField("fieldName");
+```
+
+- we can use the `getName()` method  to get the field name
+- we can use the `getType()` method  to get the field type
+-**getting and setting field values**
+   I have create a `Person` object as following
+   
+   ```java
+   Person aPerson = new Person("name1", 29, "city1");
+   ```
+   
+   - get the field value(using `field.get(instanceName)`)
+   ```java
+		Class classObject = Person.class;
+		Field fieldCity = classObject.getField("city");
+      
+      final Object cityValue = fieldCity.get(aPerson);
+		System.out.println(cityValue.toString()); //city1
+   ```
+   
+   
+
+If no field exists with the name given as parameter to the getField() method, a `NoSuchFieldException` will be thrown.
+
 ### annotations
 
 ```java
 Annotation[] annotations = classObject.getAnnotations();
+```
+
+**The Person Class I defined**
+
+```java
+  public class Person {
+	public String city;
+	private String name;
+	private int age;
+
+	public Person() {
+		this.city = "";
+		this.name = "";
+		this.age = 0;
+	}
+
+	public Person(final String name, final int age, final String city) {
+		this.name = name;
+		this.age = age;
+		this.city = city;
+	}
+
+	@Override
+	public String toString() {
+		return name + " " + age;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public int getAge() {
+		return age;
+	}
+}
 ```
