@@ -170,7 +170,7 @@ If no field exists with the name given as parameter to the getField() method, a 
 - we can use the `getName()` method  to get the field name
 - we can use the `getType()` method  to get the field type
 
--**getting and setting field values**
+- **getting and setting field values**
 
    I have create a `Person` object as following
    
@@ -206,7 +206,15 @@ If no field exists with the name given as parameter to the getField() method, a 
 
 ### Accessing the private field
 
-1. we can use `Class.getDeclaredField(String name)` and `Class.getDeclaredFields()` method to get all the fields(not only the `public` fields) 
+1. we can use `classObject.getDeclaredField(String name)` and `classObject.getDeclaredFields()` method to get all the fields(not only the `public` fields) 
+
+2. call the `privateField.setAccessible(true)`method on the private field to turn off the access checks. (this only worls in reflection)
+
+### Accessing the private method
+
+1. we can use `classObject.getDeclaredMethod("methodName", new Class[] {parameterTypes})` and `classObject.getDeclaredMethod()` method to get all the fields(not only the `public` fields) 
+
+2. call the `privateMethod.setAccessible(true)`method on the private field to turn off the access checks. (this only worls in reflection)
 
 ## annotations
 
@@ -248,3 +256,68 @@ Annotation[] annotations = classObject.getAnnotations();
 	}
 }
 ```
+
+
+## Generics
+
+I defined an `Apple` Class
+
+```java
+public class Apple {
+
+	public static List<Apple> apples = new LinkedList<>();
+
+	public int weight;
+
+	public void grow() {
+		this.weight += 2;
+	}
+
+	public static int countApples() {
+		return apples.size();
+	}
+
+	public static void addApple(final Apple apple) {
+		apples.add(apple);
+	}
+
+	public List<Apple> getAllApples() {
+		return apples;
+	}
+}
+```
+
+First,see the difference between `getGenericReturnType()` and `getReturnType()` method on a `Method` object
+```java
+final Class classObject = Apple.class;
+final Method method = classObject.getMethod("getAllApples", null);
+final Type returnType = method.getGenericReturnType();
+System.out.println(returnType.toString()); //java.util.List<test.Apple>
+System.out.println(method.getReturnType());//interface java.util.List
+
+**Generic Method Return Types**
+
+```java
+final Class classObject = Apple.class;
+final Method method = classObject.getMethod("getAllApples", null);
+final Type returnType = method.getGenericReturnType();
+System.out.println(returnType.toString()); /java.util.List<test.Apple>
+
+if (returnType instanceof ParameterizedType) {
+	final ParameterizedType type = (ParameterizedType) returnType;
+	final Type[] typeArguments = type.getActualTypeArguments();
+	for (final Type typeArgument : typeArguments) {
+		final Class typeArgClass = (Class) typeArgument;
+		System.out.println("typeArgClass = " + typeArgClass);
+	}
+}
+//typeArgClass = class test.Apple
+```
+
+**Generic Method Parameter Types**
+
+Similar to the method to obtain the returnType, we can use `getGenericParameterTypes()` or `getParameterTypes()` to obtain the ParameterTypes of a method
+
+**Generic Field Types**
+
+Similar to the method to obtain the returnType, we can use `getGenericType()` or `getType()` to obtain the type of a field
