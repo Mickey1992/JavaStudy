@@ -218,9 +218,39 @@ If no field exists with the name given as parameter to the getField() method, a 
 
 ## annotations
 
-```java
-Annotation[] annotations = classObject.getAnnotations();
-```
+- the annotation defined
+
+   ```java
+   @Retention(RetentionPolicy.RUNTIME)
+   @Target(ElementType.TYPE)
+   
+   public @interface MyAnnotation {
+       public String name();
+       public String value();
+   }
+   ```
+
+- A class use this annotation
+
+   ```java
+   @MyAnnotation(name="someName",  value = "Hello World")
+   public class TheClass {
+   }
+   ```
+
+- get all annotations on a class
+
+   ```java
+   Class aClass = TheClass.class;
+   Annotation[] annotations = aClass.getAnnotations();
+   ```
+
+- get a specific class annotation
+
+   ```java
+   Class aClass = TheClass.class;
+   Annotation[] annotations = aClass.getAnnotation(MyAnnotation.class);
+   ```
 
 ## The Person Class I defined
 
