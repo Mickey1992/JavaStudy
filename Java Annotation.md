@@ -86,3 +86,85 @@ If the method does not match a method in the superclass, the compiler will give 
 - `@SuppressWarnings`
 
 It makes the compiler suppress `warnings` (not errors) for a given **method**.
+
+## Creating Your Own Annotations
+
+Annotations are defined in their own file, just like a Java class or interface.
+
+```java
+@interface MyAnnotation {
+    String value() default "";
+    String name();
+    int age();
+    String[] newNames();
+}
+```
+
+the `@interface` keyword signals to the JAVA compiler that this is a Java annotation definition.
+each element is defined similarly to a method definition in an interface.
+we can specify default values for an element.
+
+Use this Annotation
+
+```java
+@MyAnnotation(
+    name="Jakob",
+    age=37,
+    newNames={"Jenkov", "Peterson"}
+)
+public class MyClass {
+}
+```
+## `@Retention`
+
+we can specify for our custom annotation if it should be available at runtime, for inspection via reflection. 
+
+```java
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+
+@Retention(RetentionPolicy.RUNTIME)
+
+@interface MyAnnotation {
+    String   value() default "";
+}
+```
+
+`@Retention(RetentionPolicy.RUNTIME)`is what signals to the Java compiler and JVM that the annotation should be available via reflection at runtime. 
+
+Other values can be used in `RetentionPolicy` Class
+- `RetentionPolicy.CLASS`
+
+   means that the annotation is stored in the .class file, but not available at runtime. (default)
+   
+- `RetentionPolicy.SOURCE`
+
+ means that the annotation is only available in the source code, and not in the .class files and not a runtime. 
+ 
+ ## `@Target`
+ 
+ we can specify which Java elements your custom annotation can be used to annotate. 
+ 
+ ```java
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Target;
+
+@Target({ElementType.METHOD})
+public @interface MyAnnotation {
+
+    String   value();
+}
+```
+
+all Possible targets
+
+```java
+ElementType.ANNOTATION_TYPE
+ElementType.CONSTRUCTOR
+ElementType.FIELD
+ElementType.LOCAL_VARIABLE
+ElementType.METHOD
+ElementType.PACKAGE
+ElementType.PARAMETER
+ElementType.TYPE
+```
