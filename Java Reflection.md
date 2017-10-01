@@ -119,9 +119,37 @@ If no constructor matches the given constructor arguments, `NoSuchMethodExceptio
    
 ### methods
 
+we can get a `java.lang.reflect.Method` instance for each `public` method declared in the class.
+
+- obtain all `public` methods declared in the class
+
 ```java
 Method[] methods = classObject.getMethods();
 ```
+
+- obtain a certain `public` method with the methodName and precise parameter types
+
+```java
+Method method = classObject.getMethod("methodName", new Class [] {String.Class});
+```
+
+If no method matches the given method name and arguments,a `NoSuchMethodException` will be thrown 
+
+- we can use the `getParameterTypes()` method  to get the types of a method Parameters 
+- we can use the `getReturnType()` method  to get the return type of a method
+
+- **Invoking Methods using Method Object**
+
+```java
+Method method = classObject.getMethod("methodName", new Class [] {String.Class});
+
+Object returnValue = method.invoke(instanceName, parameters)
+```
+
+**Note**
+   
+   if the method is a static method, we can pass a `null` instead of a `instanceName`
+
 ### fields
 we can get a `java.lang.reflect.Field` instance for each `public` field declared in the class.
 
@@ -137,8 +165,11 @@ Field[] fields = classObject.getFields();
 Field[] fields = classObject.getField("fieldName");
 ```
 
+If no field exists with the name given as parameter to the getField() method, a `NoSuchFieldException` will be thrown.
+
 - we can use the `getName()` method  to get the field name
 - we can use the `getType()` method  to get the field type
+
 -**getting and setting field values**
    I have create a `Person` object as following
    
@@ -147,17 +178,28 @@ Field[] fields = classObject.getField("fieldName");
    ```
    
    - get the field value(using `field.get(instanceName)`)
+   
    ```java
-		Class classObject = Person.class;
-		Field fieldCity = classObject.getField("city");
+	Class classObject = Person.class;
+	Field fieldCity = classObject.getField("city");
       
-      final Object cityValue = fieldCity.get(aPerson);
-		System.out.println(cityValue.toString()); //city1
+     	Object cityValue = fieldCity.get(aPerson);
+	System.out.println(cityValue.toString()); //city1
    ```
    
+   - set the field value(using `field.get(instanceName, value)`)
    
+   ```java
+  	Class classObject = Person.class;
+	final Field fieldCity = classObject.getField("city");
 
-If no field exists with the name given as parameter to the getField() method, a `NoSuchFieldException` will be thrown.
+	fieldCity.set(aPerson, "city2");
+	System.out.println(aPerson.getCity()); //city2
+   ```
+
+   **Note**
+   
+   if the field is a static field, we can pass a `null` instead of a `instanceName` 
 
 ### annotations
 
