@@ -344,3 +344,4 @@ Array.get(arrayName, index);
 ```java
 Class classObject = String[].class
 ```
+[tutorial](http://tutorials.jenkov.com/java-reflection/index.html)
