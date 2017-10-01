@@ -288,12 +288,14 @@ public class Apple {
 ```
 
 First,see the difference between `getGenericReturnType()` and `getReturnType()` method on a `Method` object
+
 ```java
 final Class classObject = Apple.class;
 final Method method = classObject.getMethod("getAllApples", null);
 final Type returnType = method.getGenericReturnType();
 System.out.println(returnType.toString()); //java.util.List<test.Apple>
 System.out.println(method.getReturnType());//interface java.util.List
+```
 
 **Generic Method Return Types**
 
