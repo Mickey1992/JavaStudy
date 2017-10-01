@@ -1,4 +1,4 @@
-### inspect Java classes at runtime by using reflection
+## inspect Java classes at runtime by using reflection
 
 1. Before we can do any inspection on a class we need to obtain its java.lang.Class object.
 
@@ -27,14 +27,14 @@
    - fields
    - annotations
 
-### class name
+## class name
 
  ```java
  String classNameWithPackage = myObjectClass.getName(); //packageName is included
  String classNameWithoutPackage = myObjectClass.getSimpleName(); //without packageName
  ```
  
-### class modifiers
+## class modifiers
 
 ```java
 int modifiers = myObjectClass.getModifiers()
@@ -65,18 +65,18 @@ Modifier.isTransient(int modifiers)
 Modifier.isVolatile(int modifiers)
 ```
 
-### package info
+## package info
 
 ```java
 Package objectPackage = classObject.getPackage()
 ```
-### superclass
+## superclass
 
 ```java
 Class superClass = classObject.getrSuperClass();
 ```
 
-### implemented interfaces
+## implemented interfaces
 
 ```java
 Class[] interfaces = classObject.getInterfaces();
@@ -86,7 +86,7 @@ Since a class is able to implement many interfaces, an Array of `Class` is retur
 
 NOTE: Only the interfaces specifically declared implemented by a given class is returned. If a superclass of the class implements an interface, but the class doesn't specifically state that it also implements that interface, that interface will not be returned in the array. Even if the class in practice implements that interface, because the superclass does.
 
-### constructors
+## constructors
 we can get a `java.lang.reflect.Constructor` instance for each `public` constructor declared in the class.
 
 NOTE:if the modifier of a Constructor is not `public`, it will not be returned 
@@ -117,7 +117,7 @@ If no constructor matches the given constructor arguments, `NoSuchMethodExceptio
 	   Person newPerson = (Person) constructor.newInstance("City", 20, "name");
    ```
    
-### methods
+## methods
 
 we can get a `java.lang.reflect.Method` instance for each `public` method declared in the class.
 
@@ -150,7 +150,7 @@ Object returnValue = method.invoke(instanceName, parameters)
    
    if the method is a static method, we can pass a `null` instead of a `instanceName`
 
-### fields
+## fields
 we can get a `java.lang.reflect.Field` instance for each `public` field declared in the class.
 
 - obtain all `public` fields declared in the class
@@ -171,6 +171,7 @@ If no field exists with the name given as parameter to the getField() method, a 
 - we can use the `getType()` method  to get the field type
 
 -**getting and setting field values**
+
    I have create a `Person` object as following
    
    ```java
@@ -200,14 +201,20 @@ If no field exists with the name given as parameter to the getField() method, a 
    **Note**
    
    if the field is a static field, we can pass a `null` instead of a `instanceName` 
+   
+## Accessing the private filed/methods
 
-### annotations
+### Accessing the private field
+
+1. we can use `Class.getDeclaredField(String name)` and `Class.getDeclaredFields()` method to get all the fields(not only the `public` fields) 
+
+## annotations
 
 ```java
 Annotation[] annotations = classObject.getAnnotations();
 ```
 
-**The Person Class I defined**
+## The Person Class I defined
 
 ```java
   public class Person {
