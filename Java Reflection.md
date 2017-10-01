@@ -178,7 +178,7 @@ If no field exists with the name given as parameter to the getField() method, a 
    Person aPerson = new Person("name1", 29, "city1");
    ```
    
-   - get the field value(using `field.get(instanceName)`)
+   + get the field value(using `field.get(instanceName)`)
    
    ```java
 	Class classObject = Person.class;
@@ -188,7 +188,7 @@ If no field exists with the name given as parameter to the getField() method, a 
 	System.out.println(cityValue.toString()); //city1
    ```
    
-   - set the field value(using `field.get(instanceName, value)`)
+   + set the field value(using `field.get(instanceName, value)`)
    
    ```java
   	Class classObject = Person.class;
@@ -323,3 +323,24 @@ Similar to the method to obtain the returnType, we can use `getGenericParameterT
 **Generic Field Types**
 
 Similar to the method to obtain the returnType, we can use `getGenericType()` or `getType()` to obtain the type of a field
+
+## Array
+
+- Create Arrays
+
+```java
+int[] intArray = (int[]) Array.newInstance(int.class, 3);
+```
+
+- Access Arrays
+
+```java
+Array.set(arrayName, index, value);
+Array.get(arrayName, index);
+```
+
+- Obtain the Class Object of an Array
+
+```java
+Class classObject = String[].class
+```
