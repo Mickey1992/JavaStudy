@@ -279,11 +279,11 @@ With a given `EntityManger`, we can use it to store, retrieve, update and delete
 
 ```java
 em.getTransaction().begin();
-  for (int i = 0; i < 1000; i++) {
-      Point p = new Point(i, i);
-      em.persist(p);
-  }
-  em.getTransaction().commit();
+for (int i = 0; i < 1000; i++) {
+    Point p = new Point(i, i);
+    em.persist(p);
+}
+em.getTransaction().commit();
 ```
 
 ### do some queries
