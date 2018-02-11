@@ -27,11 +27,11 @@ refer to: [JavaFX Sources in Eclipse](https://blog.codefx.org/tools/javafx-sourc
    lay out its children in a single horizontal row.
    
 ## Style Sheets
-Selector `.root` in JavaFX is simlar with `body` in HTML.
+### Selector `.root` in JavaFX is simlar with `body` in HTML.
 
-I did an expirement.
+### I did an expirement.
 the style defined in `SiginBtn.css` only applys on `SigninBtn` class but not `Button` class.
-### `Login.java` 
+**`Login.java`**
 ```java
 public class Login extends Application {
 
@@ -66,7 +66,7 @@ public class Login extends Application {
 	}
 }
 ```
-### `SigninBtn.java`
+**`SigninBtn.java`**
 ```java
 public class SigninBtn extends Button {
 	public SigninBtn(final String text) {
@@ -75,7 +75,7 @@ public class SigninBtn extends Button {
 	}
 }
 ```
-### `SigninBtn.css`
+**`SigninBtn.css`**
 ```css
 .button {
     -fx-text-fill: white;
@@ -87,6 +87,15 @@ public class SigninBtn extends Button {
 
 .button:hover {
     -fx-background-color: linear-gradient(#2A5058, #61a2b1);
+}
+```
+
+### The `.root` style class includes properties that can be used by other styles to provide consistency in a UI
+
+```css
+// the property -fx-focused-base is defined in the .root style. 
+.check-box:focused {
+    -fx-color: -fx-focused-base;
 }
 ```
 
