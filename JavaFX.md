@@ -27,6 +27,8 @@ refer to: [JavaFX Sources in Eclipse](https://blog.codefx.org/tools/javafx-sourc
    lay out its children in a single horizontal row.
    
 ## Style Sheets
+Selector `.root` in JavaFX is simlar with `body` in HTML.
+
 I did an expirement.
 the style defined in `SiginBtn.css` only applys on `SigninBtn` class but not `Button` class.
 ### `Login.java` 
