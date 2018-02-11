@@ -99,4 +99,11 @@ public class SigninBtn extends Button {
 }
 ```
 
+TODO:
++ [Using JavaFX UI Controls](https://docs.oracle.com/javafx/2/ui_controls/jfxpub-ui_controls.htm)
++ [Styling Layout Panes with CSS](https://docs.oracle.com/javafx/2/layout/style_css.htm)
++ [Styling Charts with CSS](https://docs.oracle.com/javafx/2/charts/css-styles.htm) **can check this later**
++ [Using FXML to Create a User Interface](https://docs.oracle.com/javafx/2/get_started/fxml_tutorial.htm#CIHHGHJJ)
++ [Working With Layouts in JavaFX](https://docs.oracle.com/javafx/2/layout/jfxpub-layout.htm)
++ [Deploying Your First JavaFX Application](https://docs.oracle.com/javafx/2/get_started/basic_deployment.htm#BABIDHGA)
 
