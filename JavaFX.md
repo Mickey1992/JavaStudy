@@ -1,10 +1,10 @@
 ## How to setup Eclipse to be able to use JavaFX
-### Add Accessible Rule Pattern
+### 1. Add Accessible Rule Pattern
 go to project> properties> java build path> libraries> then expand the libraries and double click on> Access rules there you set the permission Resolution : Accessible Rule Pattern : javafx/**
 
 refer to: https://stackoverflow.com/a/46513651/2334320
 
-### tell Eclipse to attach the JavaFX sources
+### 2. Tell Eclipse to attach the JavaFX sources
 + open preferences (Window ~> Preferences)
 + edit the used JRE (Java ~> Installed JREs ~> Select JDK on the right ~> Edit)
 + start to attach FX sources (select jfxrt.jar ~> Source Attachement)
