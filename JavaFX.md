@@ -13,3 +13,81 @@ refer to: https://stackoverflow.com/a/46513651/2334320
 + almost done, just OK/Finish your way back…
 
 refer to: [JavaFX Sources in Eclipse](https://blog.codefx.org/tools/javafx-sources-in-eclipse/)
+
+## The basic structure of a JavaFX Application
+- `Stage` class - the top-level JavaFX container
+- `Scene` class - the container for all content
+
+## Some layout pane
+- StackPane
+   lay out its children in a back-to-front stack
+- GridPane
+   lay out its children within a flexible grid of rows and columns
+- HBox
+   lay out its children in a single horizontal row.
+   
+## Style Sheets
+Style sheets are applied to **Scene objects**
+
+I did an expirement.
+the style defined in `SiginBtn.css` only applys on `SigninBtn` class but not `Button` class.
+### `Login.java` 
+```java
+public class Login extends Application {
+
+	@Override
+	public void start(final Stage primaryStage) throws Exception {
+		primaryStage.setTitle("JavaFX Welcome");
+		final GridPane grid = new GridPane();
+
+		final SigninBtn btn = new SigninBtn("Sign in");
+		final HBox hbBtn = new HBox(10);
+		hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
+		hbBtn.getChildren().add(btn);
+		grid.add(hbBtn, 1, 4);
+
+		final Button btn2 = new Button("test");
+		final HBox hbBtn2 = new HBox(10);
+		hbBtn2.setAlignment(Pos.BOTTOM_RIGHT);
+		hbBtn2.getChildren().add(btn2);
+		grid.add(hbBtn2, 1, 8);
+
+		final Scene scene = new Scene(grid, 300, 275);
+		primaryStage.setScene(scene);
+		scene.getStylesheets().add(Login.class.getResource("Login.css").toExternalForm());
+		scenetitle.setId("welcome-text");
+		actiontarget.setId("actiontarget");
+		primaryStage.show();
+
+	}
+
+	public static void main(final String[] args) {
+		launch(args);
+	}
+}
+```
+### `SigninBtn.java`
+```java
+public class SigninBtn extends Button {
+	public SigninBtn(final String text) {
+		super(text);
+		this.getStylesheets().add(SigninBtn.class.getResource("SigninBtn.css").toExternalForm());
+	}
+}
+```
+### `SigninBtn.css`
+```css
+.button {
+    -fx-text-fill: white;
+    -fx-font-family: "Arial Narrow";
+    -fx-font-weight: bold;
+    -fx-background-color: linear-gradient(#61a2b1, #2A5058);
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+}
+
+.button:hover {
+    -fx-background-color: linear-gradient(#2A5058, #61a2b1);
+}
+```
+
+
