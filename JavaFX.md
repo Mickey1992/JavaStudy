@@ -107,3 +107,5 @@ TODO:
 + [Working With Layouts in JavaFX](https://docs.oracle.com/javafx/2/layout/jfxpub-layout.htm)
 + [Deploying Your First JavaFX Application](https://docs.oracle.com/javafx/2/get_started/basic_deployment.htm#BABIDHGA)
 
+https://stackoverflow.com/questions/9861178/javafx-primarystage-remove-windows-borders
+
