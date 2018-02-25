@@ -1,0 +1,49 @@
+#main-screen{
+	-fx-pref-height: 350;
+	-fx-pref-width: 500;
+	-fx-padding: 7;
+	
+}
+
+#message-label{
+	-fx-pref-height: 150;
+	-fx-pref-width: 500;
+	-fx-padding: 0 0 7 0;
+}
+
+/*
+#attention-icon
+{
+	-fx-fit-height: 50;
+	-fx-fit-height: 50;
+}
+*/
+
+#table-list-pane{
+	-fx-pref-height: 150;
+	-fx-pref-width: 500;
+	/*hide the grid line of every cell*/
+	-fx-table-cell-border-color: transparent;
+	-fx-padding: 0 0 7 0;
+	/*hide the grid line table view*/
+	-fx-background-insets: 0;
+}
+
+#button-pane{
+	-fx-pref-height: 75;
+	-fx-pref-width: 500;
+	-fx-padding: 7 0 0 0;
+}
+
+#name-col, #age-col{
+	-fx-pref-width: 100;
+}
+
+#address-col{
+	-fx-pref-width: 286;
+}
+
+/* Do not show empty rows in table */
+.table-row-cell:empty {
+    -fx-background-color: transparent;
+}
