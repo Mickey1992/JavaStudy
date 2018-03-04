@@ -110,3 +110,36 @@ TODO:
 https://stackoverflow.com/questions/9861178/javafx-primarystage-remove-windows-borders
 https://stackoverflow.com/questions/46712293/how-can-i-remove-my-javafx-program-from-the-taskbar?rq=1
 
+##Command used to package
+
+1.javapackager -createjar -nocss2bin -appclass [package.mainClass] -srcdir bin -outdir [output folder] -outfile [output file name] -v
+
+2.javapackager -deploy -native image -outdir [output folder] -outfile [output file name] -srcdir [output folder in step1] -srcfiles [output file in step1] -appclass [Main class name] -name "MyApplication" -title "MyApplication" -BappVersion=1.0 -Bwin.menuGroup="MyApplication"
+
+3.jdeps -s [jar file in step one]
+
+javac --module-source-path src -d mod -m gui
+
+java --module-path mod -m gui/gui.test.Test
+
+jlink --module-path mod "C:\Program Files\Java\jdk-9.0.4\jmods" -add-modules gui output myjre
+
+jlink --module-path $JAVA_HOME/jmods:mod --add-modules gui --output greetingsapp
+
+
+javapackager -createjar -nocss2bin -appclass gui.test.Test -srcdir bin -outdir out -outfile myApplication -v
+jdeps -s out/myApplication.jar
+javapackager -deploy -v -outdir output -name Test -native -BsignBundle=false -BappVersion=1.0 -Bmac.dmg.simple=true --module-path JAVA_HOME/jmods --module gui/gui.test.Test
+
+
+
+jlink --compress=2 --module-path JAVA_MODS:modules --add-modules mod --output dist/my-app --launcher myapp=gui/gui.test.Test 
+jlink --compress=2 --module-path JAVA_HOME/jmods:modules --add-modules mod --output dist/my-app --launcher myapp=gui/gui.test.Test
+
+jlink --module-path libs:jmods --add-modules gui --launcher gui=gui/gui.test.Test --output dist --strip-debug --compress 2 --no-header-files --no-man-pages
+
+
+jlink -output mydemo-runtime --module-path c:/Program Files/Java/jdk-9.0.4/mods --limit-modules gui --add-modules gui -launcher demorun=gui --compress=2 --no-header-files --strip-debug
+
+
+java --module-path out/myApplication.jar -m org.abondar.experimental.intro/org.abondar.experimental.intro.Welcome
