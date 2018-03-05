@@ -151,3 +151,5 @@ and https://www.logicbig.com/tutorials/core-java-tutorial/modules/automatic-modu
 then, 
 
 javapackager -deploy -v -outdir output -name Test -native -BsignBundle=false -BappVersion=1.0 -Bmac.dmg.simple=true --module-path module;"%JAVA_HOME%\jmods" --add-modules javafx.study --module javafx.study/test.Test
+
+https://qiita.com/opengl-8080/items/1007c2b2543c2fe0d7d5#named-module---automatic-module
