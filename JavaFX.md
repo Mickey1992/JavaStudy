@@ -145,3 +145,9 @@ jlink -output mydemo-runtime --module-path c:/Program Files/Java/jdk-9.0.4/mods 
 java --module-path out/myApplication.jar -m org.abondar.experimental.intro/org.abondar.experimental.intro.Welcome
 
 refer to :http://www.torutk.com/projects/swe/wiki/Jigsaw%E8%A9%A6%E8%A1%8C%E9%8C%AF%E8%AA%A4
+
+and https://www.logicbig.com/tutorials/core-java-tutorial/modules/automatic-modules.html
+
+then, 
+
+javapackager -deploy -v -outdir output -name Test -native -BsignBundle=false -BappVersion=1.0 -Bmac.dmg.simple=true --module-path module;"%JAVA_HOME%\jmods" --add-modules javafx.study --module javafx.study/test.Test
