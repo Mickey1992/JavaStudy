@@ -40,7 +40,7 @@ jar uf [jar file path] -C [compiled class path of jar file] module-info.class
 javapackager -deploy -v -outdir [output folder] -name [application name] -native -BsignBundle=false -BappVersion=1.0 -Bmac.dmg.simple=true --module-path [module path];"%JAVA_HOME%\jmods" --add-modules [root module name] --module [module name]/[package].[main class]
 ```
 
-###Other usage
+### Other usage
 https://qiita.com/opengl-8080/items/1007c2b2543c2fe0d7d5#unnamed-module---named-module
 
 http://www.torutk.com/projects/swe/wiki/Jigsaw%E8%A9%A6%E8%A1%8C%E9%8C%AF%E8%AA%A4
